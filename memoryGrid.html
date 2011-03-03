@@ -10,7 +10,7 @@
     <div class="screen">
       <div id="matrix">
       </div>
-      <a id="play-game" class="enabled">Nieuw spel beginnen</a>
+      <a id="play-game">Nieuw spel beginnen</a>
     </div>
     <script type="text/javascript" src="http://www.rekentuin.nl/js/mootools-core.js">
     </script>
@@ -20,23 +20,9 @@
       
       window.addEvent('domready', function()
       {
-        document.id('play-game').addEvent('click', function(arg_event)
-        {
-          if (this.hasClass('enabled')) 
-          {
-            this.removeClass('enabled');
-            initializeNewGame(document.getElementById('matrix'));
-          }
-        });
+	  	  var controller = new MemoryGrid.GameController(document.getElementById('play-game'), document.getElementById('matrix'));
       });
-      
-      function initializeNewGame(arg_element, arg_button)
-      {
-        var question = '1,red,triangle;4,blue,square;7,green,ball;16,orange,star';
-        var matrix = MemoryGrid.initialize(arg_element);
-        
-        MemoryGrid.startGame(matrix, question);
-      }
+
     </script>
   </body>
 </html>
