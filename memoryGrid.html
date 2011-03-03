@@ -1,40 +1,42 @@
 <html>
   <head>
-  	<title>Memory Grid</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="http://yui.yahooapis.com/2.8.1/build/reset/reset-min.css" /> 
-    <link rel="stylesheet" type="text/css" media="screen" href="http://yui.yahooapis.com/2.8.1/build/fonts/fonts-min.css" /> 
-    <link rel="stylesheet" type="text/css" media="screen" href="http://yui.yahooapis.com/2.8.1/build/base/base-min.css" /> 
+    <title>Memory Grid</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="http://yui.yahooapis.com/2.8.1/build/reset/reset-min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="http://yui.yahooapis.com/2.8.1/build/fonts/fonts-min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="http://yui.yahooapis.com/2.8.1/build/base/base-min.css" />
     <link rel="stylesheet" href="default.css" type="text/css" />
   </head>
   <body>
     <div class="screen">
-      <div id="matrix"></div>
-			<a id="play-game" class="enabled">Nieuw spel beginnen</a>
+      <div id="matrix">
+      </div>
+      <a id="play-game" class="enabled">Nieuw spel beginnen</a>
     </div>
-    <script type="text/javascript" src="http://www.rekentuin.nl/js/mootools-core.js"></script>
-    <script type="text/javascript" src="scripts/memoryGrid.js"></script>
+    <script type="text/javascript" src="http://www.rekentuin.nl/js/mootools-core.js">
+    </script>
+    <script type="text/javascript" src="scripts/memoryGrid.js">
+    </script>
     <script type="text/javascript">
-    	
-      window.addEvent('domready', function ()
-			{
-				document.id('play-game').addEvent('click', function (arg_event)
-				{
-					if (this.hasClass('enabled'))
-					{
-						this.removeClass('enabled');
-						initializeNewGame(document.getElementById('matrix'));
-					}
-				});
-  	  });
-
-      function initializeNewGame (arg_element, arg_button)
-			{
+      
+      window.addEvent('domready', function()
+      {
+        document.id('play-game').addEvent('click', function(arg_event)
+        {
+          if (this.hasClass('enabled')) 
+          {
+            this.removeClass('enabled');
+            initializeNewGame(document.getElementById('matrix'));
+          }
+        });
+      });
+      
+      function initializeNewGame(arg_element, arg_button)
+      {
         var question = '1,red,triangle;4,blue,square;7,green,ball;16,orange,star';
         var matrix = MemoryGrid.initialize(arg_element);
-
+        
         MemoryGrid.startGame(matrix, question);
-			}
-
+      }
     </script>
   </body>
 </html>
