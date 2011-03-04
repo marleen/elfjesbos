@@ -8,6 +8,7 @@
   </head>
   <body>
     <div class="screen">
+      <p id="instructions">&nbsp;</p>
       <div id="matrix">
       </div>
       <a id="play-game">Nieuw spel beginnen</a>
@@ -19,7 +20,7 @@
       
       window.addEvent('domready', function()
       {
-	  	  var controller = new MemoryGrid.GameController(document.getElementById('play-game'), document.getElementById('matrix'));
+	  	  var controller = new MemoryGrid.GameController(document.getElementById('play-game'), document.getElementById('matrix'), document.getElementById('instructions'));
       });
 
     </script>
