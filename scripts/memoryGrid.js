@@ -14,6 +14,42 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       this.changeText(this.configuration.getIntroduction());
       this.highLightText();
       this.matrix.build();
+      
+      var gameInstance = this;
+      
+      arg_window.setTimeout(function ()
+      {
+        gameInstance.showStimuli();
+      }, this.configuration.getIntroductionDuration());
+    },
+    
+    showStimuli: function ()
+    {
+      var animators = []
+        , stimuli   = this.configuration.getStimuli()
+        , animatorChain
+        , animator
+        , element;
+      
+      for (var i = 0; i < stimuli.length; i++)
+      {
+        console.log(stimuli[i]);
+        element  = this.matrix.element.querySelector('tr:nth-child(' + (stimuli[i].y + 1) + ') > td:nth-child(' + (stimuli[i].x + 1) + ')');
+
+        console.log(element);
+
+        animator = new Animator({ transition: Animator.tx.easeIn
+                                , duration:   1000
+                                })
+
+        animator.addSubject(new CSSStyleSubject(element, 'background-color: #FFF', 'background-color: ' + stimuli[i].color ));
+
+        animators.push(animator);
+      }
+      
+      animatorChain = new AnimatorChain(animators);
+      
+      animatorChain.play();
     },
     
     stop: function ()
@@ -74,7 +110,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       }
       
       // this should retrieve the question from the database with an AJAX call... Hardcoded for now :-/
-      var question = '4,5|Onthoudt de volgorde van de objecten|Klik de objecten aan in dezelfde volgorde.|1,red,triangle;4,blue,square;7,green,ball;16,orange,star', configuration = new ConfigurationTransformer(question, '|', ';', ','), matrix = new Matrix(this.matrixElement, configuration.getRows(), configuration.getColumns());
+      var question = '4,5|Onthoudt de volgorde van de objecten|Klik de objecten aan in dezelfde volgorde.|2,#333,triangle;4,#345,square;7,#543,ball;16,#555,star', configuration = new ConfigurationTransformer(question, '|', ';', ','), matrix = new Matrix(this.matrixElement, configuration.getRows(), configuration.getColumns());
       
       GameController.currentGame = new Game(matrix, configuration, this.textElement);
       
@@ -112,26 +148,31 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
     
     var dimensions = configuration[0].split(arg_characteristicDelimitter);
     
-    function _getRows()
+    function _getRows ()
     {
       return parseInt(dimensions[0])
     }
     
-    function _getColumns()
+    function _getColumns ()
     {
       return parseInt(dimensions[1])
     }
     
-    function _getIntroduction()
+    function _getIntroduction ()
     {
       return configuration[1];
     }
     
-    function _getQuestion()
+    function _getQuestion ()
     {
       return configuration[2];
     }
-    
+
+    function _getIntroductionDuration ()
+    {
+      return 1000;
+    }
+ 
     var definitions = configuration[3].split(arg_objectDelimitter), stimuli = [], rows = _getRows();
     
     for (var i = 0, count = definitions.length; i < count; i++) 
@@ -141,16 +182,17 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       stimuli.push(new Stimulus((stimulus[0] - 1) % rows, Math.ceil(stimulus[0] / rows) - 1, stimulus[1], stimulus[2]));
     }
     
-    function _getStimuli()
+    function _getStimuli ()
     {
       return stimuli;
     }
-    
-    return { getRows: _getRows
-           , getColumns: _getColumns
-           , getIntroduction: _getIntroduction
-           , getQuestion: _getQuestion
-           , getStimuli: _getStimuli
+ 
+    return { getRows:                 _getRows
+           , getColumns:              _getColumns
+           , getIntroduction:         _getIntroduction
+           , getIntroductionDuration: _getIntroductionDuration
+           , getQuestion:             _getQuestion
+           , getStimuli:              _getStimuli
            };
   };
   
