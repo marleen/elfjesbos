@@ -31,7 +31,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       if (arg_undefined === this.highLightAnimator) 
       {
         this.highLightAnimator = new Animator({ transition: Animator.tx.easeIn
-                                              , duration: 1000
+                                              , duration:   1000
                                               });
         
         this.highLightAnimator.addSubject(new ColorStyleSubject(this.textElement, "background-color", '#00611C', '#FFF'));
