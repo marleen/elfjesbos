@@ -9,14 +9,14 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
   
   Game.prototype = {
   
-    start: function()
+    start: function ()
     {
       this.changeText(this.configuration.getIntroduction());
       this.highLightText();
       this.matrix.build();
     },
     
-    stop: function()
+    stop: function ()
     {
       this.matrix.dispose();
     },
@@ -26,7 +26,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       this.textElement.innerHTML = arg_text;
     },
     
-    highLightText: function()
+    highLightText: function ()
     {
       if (arg_undefined === this.highLightAnimator) 
       {
@@ -51,7 +51,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
     // we create a reference to the game controller to refer to from our onClick event handler
     var gameControllerInstance = this;
     
-    arg_selector(arg_buttonElement).addEvent('click', function()
+    arg_selector(arg_buttonElement).addEvent('click', function ()
     {
       var disabledClass = 'disabled';
       
@@ -66,7 +66,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
   
   GameController.prototype = {
   
-    startGame: function()
+    startGame: function ()
     {
       if (arg_undefined !== GameController.currentGame) 
       {
@@ -81,7 +81,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       GameController.currentGame.start();
     },
     
-    endGame: function()
+    endGame: function ()
     {
       if (arg_undefined === GameController.currentGame) 
       {
@@ -168,7 +168,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
   
   Matrix.prototype = {
   
-    build: function()
+    build: function ()
     {
       var table = document.createElement('table')
         , tbody = document.createElement('tbody');
@@ -192,7 +192,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       this.element.appendChild(table);
     },
     
-    dispose: function()
+    dispose: function ()
     {
       this.element.removeChild(this.element.firstChild);
     }
