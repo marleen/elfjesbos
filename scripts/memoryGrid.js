@@ -14,38 +14,42 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       this.changeText(this.configuration.getIntroduction());
       this.highLightText();
       this.matrix.build();
-      
-      var gameInstance = this;
-      
-      arg_window.setTimeout(function ()
-      {
-        gameInstance.showStimuli();
-      }, this.configuration.getIntroductionDuration());
+      this.showStimuli.delay(this.configuration.getIntroductionDuration(), this);
     },
     
     showStimuli: function ()
     {
-      var animators = []
-        , stimuli   = this.configuration.getStimuli()
-        , animatorChain
-        , animator
-        , element;
+      var animations   = []
+        , stimuli      = this.configuration.getStimuli()
+        , stimuliCount = stimuli.length
+        , delay        = -1000
+        , element
+        , options;
       
-      for (var i = 0; i < stimuli.length; i++)
+      for (var i = 0; i < stimuliCount; i++)
       {
-        element  = this.matrix.grid[stimuli[i].y][stimuli[i].x];
-        animator = new Animator({ transition: Animator.tx.easeIn
-                                , duration:   1000
-                                })
+        delay        += stimuli[i].delay;
+        element       = arg_selector(this.matrix.grid[stimuli[i].y][stimuli[i].x]);
+        animations[i] = new Fx.Morph(element);
+        options       = { 'duration'        : stimuli[i].duration
+                        , 'background-color': stimuli[i].color
+                        };
 
-        animator.addSubject(new CSSStyleSubject(element, 'background-color: #FFF', 'background-color: ' + stimuli[i].color ));
+        element.addClass('shape-' + stimuli[i].shape);
 
-        animators.push(animator);
+        if (0 < i)
+        {
+          animations[i].start.delay(delay, animations[i], options);
+        }
+        else
+        {
+          animations[0].start(options);
+        }
+
+        animations[i].start.delay(delay + stimuli[i].duration, animations[i], { 'background-color': '#FFFFFF' });
       }
-      
-      animatorChain = new AnimatorChain(animators);
-      
-      animatorChain.play();
+
+      this.changeText.delay(delay, this, this.configuration.getQuestion());
     },
     
     stop: function ()
@@ -60,16 +64,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
     
     highLightText: function ()
     {
-      if (arg_undefined === this.highLightAnimator) 
-      {
-        this.highLightAnimator = new Animator({ transition: Animator.tx.easeIn
-                                              , duration:   1000
-                                              });
-        
-        this.highLightAnimator.addSubject(new ColorStyleSubject(this.textElement, "background-color", '#00611C', '#FFF'));
-      }
-      
-      this.highLightAnimator.play();
+      arg_selector(this.textElement).highlight('#00611C');
     }
     
   };
@@ -129,10 +124,12 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
   
   var Stimulus = function(arg_x, arg_y, arg_color, arg_shape)
   {
-    this.x     = arg_x;
-    this.y     = arg_y;
-    this.shape = arg_shape;
-    this.color = arg_color;
+    this.x        = arg_x;
+    this.y        = arg_y;
+    this.shape    = arg_shape;
+    this.color    = arg_color;
+    this.duration = 1000;
+    this.delay    = 1000;
   };
   
   var ConfigurationTransformer = function(arg_configuration, arg_configurationDelimitter, arg_objectDelimitter, arg_characteristicDelimitter)
@@ -171,7 +168,9 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       return 1000;
     }
  
-    var definitions = configuration[3].split(arg_objectDelimitter), stimuli = [], rows = _getRows();
+    var definitions = configuration[3].split(arg_objectDelimitter)
+      , stimuli     = []
+      , rows        = _getRows();
     
     for (var i = 0, count = definitions.length; i < count; i++) 
     {
