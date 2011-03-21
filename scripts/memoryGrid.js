@@ -33,11 +33,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       
       for (var i = 0; i < stimuli.length; i++)
       {
-        console.log(stimuli[i]);
-        element  = this.matrix.element.querySelector('tr:nth-child(' + (stimuli[i].y + 1) + ') > td:nth-child(' + (stimuli[i].x + 1) + ')');
-
-        console.log(element);
-
+        element  = this.matrix.grid[stimuli[i].y][stimuli[i].x];
         animator = new Animator({ transition: Animator.tx.easeIn
                                 , duration:   1000
                                 })
@@ -84,7 +80,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
     this.matrixElement = arg_matrixElement;
     this.textElement   = arg_textElement;
     
-    // we create a reference to the game controller to refer to from our onClick event handler
+    // created a reference to the game controller to refer to from the onClick event handler
     var gameControllerInstance = this;
     
     arg_selector(arg_buttonElement).addEvent('click', function ()
@@ -109,8 +105,10 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
         throw new Error("There is a game currently active");
       }
       
-      // this should retrieve the question from the database with an AJAX call... Hardcoded for now :-/
-      var question = '4,5|Onthoudt de volgorde van de objecten|Klik de objecten aan in dezelfde volgorde.|2,#333,triangle;4,#345,square;7,#543,ball;16,#555,star', configuration = new ConfigurationTransformer(question, '|', ';', ','), matrix = new Matrix(this.matrixElement, configuration.getRows(), configuration.getColumns());
+      // this should retrieve the question from the database with an AJAX call... hardcoded for now 
+      var question      = '4,5|Onthoudt de volgorde van de objecten|Klik de objecten aan in dezelfde volgorde.|2,#333,triangle;4,#345,square;7,#543,ball;16,#555,star;6,#555,star'
+        , configuration = new ConfigurationTransformer(question, '|', ';', ',')
+        , matrix        = new Matrix(this.matrixElement, configuration.getRows(), configuration.getColumns());
       
       GameController.currentGame = new Game(matrix, configuration, this.textElement);
       
@@ -179,7 +177,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
     {
       var stimulus = definitions[i].split(arg_characteristicDelimitter);
       
-      stimuli.push(new Stimulus((stimulus[0] - 1) % rows, Math.ceil(stimulus[0] / rows) - 1, stimulus[1], stimulus[2]));
+      stimuli.push(new Stimulus((stimulus[0] - 1) % rows, Math.floor((stimulus[0] - 1) / rows), stimulus[1], stimulus[2]));
     }
     
     function _getStimuli ()
@@ -206,6 +204,12 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
     this.element = arg_element;
     this.rows    = arg_rows;
     this.columns = arg_columns;
+    this.grid    = [];
+    
+    for (var i = 0; i < this.rows; i++) 
+    {
+      this.grid[i] = [];
+    }
   };
   
   Matrix.prototype = {
@@ -226,6 +230,8 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
           var cell = document.createElement('td');
           
           row.appendChild(cell);
+
+          this.grid[i][j] = cell;
         }
         
         tbody.appendChild(row);
