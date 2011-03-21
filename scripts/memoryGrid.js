@@ -184,12 +184,19 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       return stimuli;
     }
 
+    function _getFilteredStimuli ()
+    {
+      // possible future extension poin
+      return stimuli;
+    }
+
     return { getRows:                 _getRows
            , getColumns:              _getColumns
            , getIntroduction:         _getIntroduction
            , getIntroductionDuration: _getIntroductionDuration
            , getQuestion:             _getQuestion
            , getStimuli:              _getStimuli
+           , getFilteredStimuli:      _getFilteredStimuli
            };
   };
 
