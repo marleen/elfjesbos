@@ -1,10 +1,11 @@
 var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
 {
-  var Game = function(arg_matrix, arg_configuration, arg_textElement)
+  var Game = function(arg_matrix, arg_configuration, arg_textElement, arg_controller)
   {
     this.matrix        = arg_matrix;
     this.configuration = arg_configuration;
     this.textElement   = arg_textElement;
+    this.controller    = arg_controller;
   };
 
   Game.prototype = {
@@ -22,7 +23,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       var animations   = []
         , stimuli      = this.configuration.getStimuli()
         , stimuliCount = stimuli.length
-        , delay        = -1000
+        , delay        = -stimuli[0].delay
         , element
         , options;
 
@@ -50,10 +51,55 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       }
 
       this.changeText.delay(delay, this, this.configuration.getQuestion());
+      this.highLightText.delay(delay, this);
+      this.addEventHandlers.delay(delay + this.configuration.getQuestionDuration(), this);
+    },
+
+    addEventHandlers: function ()
+    {
+      this.onClickEventHandler = this.onClick.bind(this);
+
+      arg_selector(this.matrix.element).addEvent('click', this.onClickEventHandler);
+    },
+
+    removeEventHandlers: function ()
+    {
+      if (this.onClickEventHandler)
+      {
+        arg_selector(this.matrix.element).removeEvent('click', this.onClickEventHandler);
+      }
+    },
+
+    onClick: function (arg_event)
+    {
+      var stimuli  = this.configuration.getExpectedStimuli()
+        , stimulus = stimuli.shift()
+        , cell     = arg_event.target;
+
+      if (stimulus.y != cell.parentNode.rowIndex || stimulus.x != cell.cellIndex)
+      {
+        this.changeText("Incorrect answer");
+        this.highLightText();
+        this.controller.endGame();
+      }
+      else
+      {
+        if (1 > stimuli.length)
+        {
+          this.changeText("Great you won the game, click the button to start again");
+          this.highLightText();
+          this.controller.endGame();
+        }
+        else
+        {
+          this.highLightText();
+        }
+      }
     },
 
     stop: function ()
     {
+      this.removeEventHandlers();
       this.matrix.dispose();
     },
 
@@ -93,6 +139,11 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
 
   GameController.prototype = {
 
+    enableButton: function ()
+    {
+      arg_selector(this.buttonElement).removeClass('disabled');
+    },
+
     startGame: function ()
     {
       if (arg_undefined !== GameController.currentGame)
@@ -105,7 +156,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
         , configuration = new ConfigurationTransformer(question, '|', ';', ',')
         , matrix        = new Matrix(this.matrixElement, configuration.getRows(), configuration.getColumns());
 
-      GameController.currentGame = new Game(matrix, configuration, this.textElement);
+      GameController.currentGame = new Game(matrix, configuration, this.textElement, this);
 
       GameController.currentGame.start();
     },
@@ -118,6 +169,9 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       }
 
       GameController.currentGame.stop();
+      this.enableButton();
+
+      GameController.currentGame = arg_undefined;
     }
 
   };
@@ -168,6 +222,11 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       return 1000;
     }
 
+    function _getQuestionDuration ()
+    {
+      return 1000;
+    }
+
     var definitions = configuration[3].split(arg_objectDelimitter)
       , stimuli     = []
       , rows        = _getRows();
@@ -184,9 +243,9 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       return stimuli;
     }
 
-    function _getFilteredStimuli ()
+    function _getExpectedStimuli ()
     {
-      // possible future extension poin
+      // possible future extension point
       return stimuli;
     }
 
@@ -194,9 +253,10 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
            , getColumns:              _getColumns
            , getIntroduction:         _getIntroduction
            , getIntroductionDuration: _getIntroductionDuration
+           , getQuestionDuration:     _getQuestionDuration
            , getQuestion:             _getQuestion
            , getStimuli:              _getStimuli
-           , getFilteredStimuli:      _getFilteredStimuli
+           , getExpectedStimuli:      _getExpectedStimuli
            };
   };
 
@@ -248,7 +308,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
 
     dispose: function ()
     {
-      this.element.removeChild(this.element.firstChild);
+      this.element.removeChild(this.element.getElementsByTagName('table')[0]);
     }
 
   };
