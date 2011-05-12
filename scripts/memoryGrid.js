@@ -74,17 +74,19 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
 
       if (stimulus.y != cell.parentNode.rowIndex || stimulus.x != cell.cellIndex)
       {
-        this.changeText("Incorrect answer");
+        this.changeText("That's too bad, you lost :-( Stay alert we'll start again soon");
         this.highLightText();
         this.controller.endGame();
+        this.controller.startGame.delay(this.configuration.getIntroductionDuration(), this.controller);
       }
       else
       {
         if (1 > stimuli.length)
         {
-          this.changeText("Great you won the game, click the button to start again");
+          this.changeText("Great you won the game :-D Stay alert we'll start again soon");
           this.highLightText();
           this.controller.endGame();
+          this.controller.startGame.delay(this.configuration.getIntroductionDuration(), this.controller);
         }
         else
         {
@@ -111,34 +113,13 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
 
   };
 
-  var GameController = function(arg_buttonElement, arg_matrixElement, arg_textElement)
+  var GameController = function(arg_matrixElement, arg_textElement)
   {
-    this.buttonElement = arg_buttonElement;
     this.matrixElement = arg_matrixElement;
     this.textElement   = arg_textElement;
-
-    // created a reference to the game controller to refer to from the onClick event handler
-    var gameControllerInstance = this;
-
-    arg_selector(arg_buttonElement).addEvent('click', function ()
-    {
-      var disabledClass = 'disabled';
-
-      if ( ! this.hasClass(disabledClass))
-      {
-        gameControllerInstance.startGame();
-
-        this.addClass(disabledClass);
-      }
-    });
   };
 
   GameController.prototype = {
-
-    enableButton: function ()
-    {
-      arg_selector(this.buttonElement).removeClass('disabled');
-    },
 
     startGame: function ()
     {
@@ -147,14 +128,41 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
         throw new Error("There is a game currently active");
       }
 
-      // this should retrieve the question from the database with an AJAX call... hardcoded for now
-      var question      = '4,5|Onthoudt de volgorde van de objecten|Klik de objecten aan in dezelfde volgorde.|2,#333,triangle;4,#345,square;7,#543,ball;16,#555,star;6,#555,star'
-        , configuration = new ConfigurationTransformer(question, '|', ';', ',')
+      var client     = new XMLHttpRequest()
+        , controller = this; // create reference for later
+
+      client.onreadystatechange = function ()
+      {
+        if (this.readyState == 4)
+        {
+          if (200 !== this.status && 0 !== this.status)
+          {
+            if (null !== this.responseText)
+            {
+              throw new Error("No data was received from the server");
+            }
+          }
+          if (null !== this.responseText)
+          {
+            controller.processConfiguration(this.responseText).start();
+          }
+        }
+      }
+
+      // for now we just fetch random static question from our data dir
+      // this should be replaced with a database call
+      client.open("GET", "data/question-" + Math.round(Math.random() * 10) + '.txt');
+      client.send();
+    },
+
+    processConfiguration: function (arg_configuration)
+    {
+      var configuration = new ConfigurationTransformer(arg_configuration, '|', ';', ',')
         , matrix        = new Matrix(this.matrixElement, configuration.getRows(), configuration.getColumns());
 
       GameController.currentGame = new Game(matrix, configuration, this.textElement, this);
 
-      GameController.currentGame.start();
+      return GameController.currentGame;
     },
 
     endGame: function ()
@@ -165,7 +173,6 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       }
 
       GameController.currentGame.stop();
-      this.enableButton();
 
       GameController.currentGame = arg_undefined;
     }
@@ -215,12 +222,12 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
 
     function _getIntroductionDuration ()
     {
-      return 1000;
+      return 2000;
     }
 
     function _getQuestionDuration ()
     {
-      return 1000;
+      return 2000;
     }
 
     var definitions = configuration[3].split(arg_objectDelimitter)
@@ -277,7 +284,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       {
         if ( ! this.reverse)
         {
-          this.frame++;        
+          this.frame++;
         }
         else
         {
@@ -302,7 +309,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
         this.timer = this.pulse.periodical(this.fps, this);
       }
     },
-    
+
     stop: function ()
     {
       if (this.timer)
