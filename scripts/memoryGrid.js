@@ -24,30 +24,26 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
         , stimuli      = this.configuration.getStimuli()
         , stimuliCount = stimuli.length
         , delay        = -stimuli[0].delay
-        , element
-        , options;
+        , element;
 
       for (var i = 0; i < stimuliCount; i++)
       {
         delay        += stimuli[i].delay;
         element       = arg_selector(this.matrix.grid[stimuli[i].y][stimuli[i].x]);
-        animations[i] = new Fx.Morph(element);
-        options       = { 'duration'        : stimuli[i].duration
-                        , 'background-color': stimuli[i].color
-                        };
+        animations[i] = new SpriteAnimation(element, 5, 59, -stimuli[i].delay * 2);
 
         element.addClass('shape-' + stimuli[i].shape);
 
         if (0 < i)
         {
-          animations[i].start.delay(delay, animations[i], options);
+          animations[i].start.delay(delay, animations[i]);
         }
         else
         {
-          animations[0].start(options);
+          animations[0].start();
         }
 
-        animations[i].start.delay(delay + stimuli[i].duration, animations[i], { 'background-color': '#FFFFFF' });
+        animations[i].start.delay(delay + stimuli[i].duration, animations[i]);
       }
 
       this.changeText.delay(delay, this, this.configuration.getQuestion());
@@ -258,6 +254,73 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
            , getStimuli:              _getStimuli
            , getExpectedStimuli:      _getExpectedStimuli
            };
+  };
+
+  var SpriteAnimation = function (arg_element, arg_frames, arg_width, arg_duration)
+  {
+    this.element = arg_element;
+    this.reverse = false;
+    this.frame   = 1;
+    this.count   = arg_frames;
+    this.fps     = Math.sqrt(Math.pow(parseInt(arg_duration / arg_frames), 2));
+    this.width   = arg_width;
+    this.timer   = null;
+  };
+
+  SpriteAnimation.prototype = {
+
+    pulse: function ()
+    {
+      this.element.setStyle('background-position', '-' + this.width * this.frame + "px 0px");
+
+      if (this.frame < this.count)
+      {
+        if ( ! this.reverse)
+        {
+          this.frame++;        
+        }
+        else
+        {
+          this.frame--;
+        }
+      }
+      else if (this.frame == this.count)
+      {
+        this.reverse = true;
+        this.frame--;
+      }
+      else if (this.frame === 0)
+      {
+        this.reset();
+      }
+    },
+
+    start: function ()
+    {
+      if (null == this.timer)
+      {
+        this.timer = this.pulse.periodical(this.fps, this);
+      }
+    },
+    
+    stop: function ()
+    {
+      if (this.timer)
+      {
+        arg_window.clearInterval(this.timer);
+
+        this.timer = null;
+      }
+    },
+
+    reset: function ()
+    {
+      this.frame   = 0;
+      this.reverse = false;
+
+      this.stop();
+    }
+
   };
 
   var Matrix = function(arg_element, arg_rows, arg_columns)
