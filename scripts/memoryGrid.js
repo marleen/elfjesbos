@@ -30,7 +30,10 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       {
         delay        += stimuli[i].delay;
         element       = arg_selector(this.matrix.grid[stimuli[i].y][stimuli[i].x]);
-        animations[i] = new SpriteAnimation(element, 5, 59, -stimuli[i].delay * 2);
+        animations[i] = new SpriteAnimation(element, 5, 59, -stimuli[i].delay, function (arg_element)
+        {
+          arg_element.setStyle('background-position', '-' + this.width * this.frame + "px 0px");
+        });
 
         element.addClass('shape-' + stimuli[i].shape);
 
@@ -263,22 +266,23 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
            };
   };
 
-  var SpriteAnimation = function (arg_element, arg_frames, arg_width, arg_duration)
+  var SpriteAnimation = function (arg_element, arg_frames, arg_width, arg_duration, arg_callback)
   {
-    this.element = arg_element;
-    this.reverse = false;
-    this.frame   = 1;
-    this.count   = arg_frames;
-    this.fps     = Math.sqrt(Math.pow(parseInt(arg_duration / arg_frames), 2));
-    this.width   = arg_width;
-    this.timer   = null;
+    this.callback = arg_callback;
+    this.element  = arg_element;
+    this.reverse  = false;
+    this.frame    = 1;
+    this.count    = arg_frames;
+    this.fps      = Math.sqrt(Math.pow(parseInt(arg_duration / arg_frames), 2));
+    this.width    = arg_width;
+    this.timer    = null;
   };
 
   SpriteAnimation.prototype = {
 
     pulse: function ()
     {
-      this.element.setStyle('background-position', '-' + this.width * this.frame + "px 0px");
+      this.callback(this.element);
 
       if (this.frame < this.count)
       {
