@@ -15,7 +15,7 @@
 
 .screen
 {
-  background: transparent url(images/farm.png) no-repeat scroll 0 0;
+  background: transparent url(images/farm.png) no-repeat fixed center center;
   width: 800px;
   height: 550px;
   margin: 0 auto;
