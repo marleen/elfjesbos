@@ -1,1 +1,1 @@
-4,3|Onthoudt de volgorde van de objecten|Klik de objecten aan in dezelfde volgorde.|1,#333,star;5,#345,square;9,#543,ball;12,#555,square;6,#555,star
+4,3|Onthoudt de volgorde van de objecten|Klik de objecten aan in dezelfde volgorde.|1,#333,star;5,#345,square;9,#543,ball;11,#555,square;6,#555,star
