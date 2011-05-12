@@ -1,0 +1,1 @@
+3,3|Onthoudt de volgorde van de objecten|Klik de objecten aan in dezelfde volgorde.|9,#333,square;4,#345,triangle;2,#543,ball;8,#555,star;6,#555,star
