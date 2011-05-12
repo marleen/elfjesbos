@@ -315,4 +315,4 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
 
   return { GameController: GameController
          };
-})(/*The global window object*/window, /*The mootools selector*/ document.id);
+}(/*The global window object*/window, /*The mootools selector*/ document.id));
