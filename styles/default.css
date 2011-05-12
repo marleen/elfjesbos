@@ -32,9 +32,7 @@ p#instructions
 
 #matrix
 {
-  margin: 80px 150px;
-  height: 304px;
-  width: 304px;
+  margin: 50px 25%;
 }
 
 #matrix > table > tbody > tr > td
@@ -42,7 +40,7 @@ p#instructions
   border: 0;
   background: transparent url(../images/mole-sprite.gif) no-repeat scroll 0 0;
   height: 76px;
-  width: 76px;
+  width: 59px;
   padding: 0;
   margin: 0;
 }
