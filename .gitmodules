@@ -1,0 +1,3 @@
+[submodule "vendor/xmlhttprequest"]
+	path = vendor/xmlhttprequest
+	url = https://github.com/ilinsky/xmlhttprequest.git
