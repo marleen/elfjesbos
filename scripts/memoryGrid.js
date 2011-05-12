@@ -55,6 +55,16 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
 
     addEventHandlers: function ()
     {
+      var piggyBankAnimation = new SpriteAnimation(this.controller.piggyBankElement, 20, 38, this.configuration.getTotalDuration(), function (arg_element)
+      {
+        arg_element.setStyle('margin-left', this.width * this.frame + "px");
+        arg_element.setStyle('width', 760 - this.width * this.frame + "px");
+      });
+      
+      piggyBankAnimation.start();
+      // not so clean but it works
+      piggyBankAnimation.stop.delay(this.configuration.getTotalDuration(), piggyBankAnimation);
+
       this.onClickEventHandler = this.onClick.bind(this);
 
       arg_selector(this.matrix.element).addEvent('click', this.onClickEventHandler);
@@ -115,10 +125,11 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
 
   };
 
-  var GameController = function(arg_matrixElement, arg_textElement)
+  var GameController = function(arg_matrixElement, arg_textElement, arg_piggyBankElement)
   {
-    this.matrixElement = arg_matrixElement;
-    this.textElement   = arg_textElement;
+    this.matrixElement    = arg_matrixElement;
+    this.textElement      = arg_textElement;
+    this.piggyBankElement = arg_piggyBankElement;
   };
 
   GameController.prototype = {
@@ -231,6 +242,11 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
     {
       return 2000;
     }
+    
+    function _getTotalDuration ()
+    {
+      return 10000;
+    }
 
     var definitions = configuration[3].split(arg_objectDelimitter)
       , stimuli     = []
@@ -259,6 +275,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
            , getIntroduction:         _getIntroduction
            , getIntroductionDuration: _getIntroductionDuration
            , getQuestionDuration:     _getQuestionDuration
+           , getTotalDuration:        _getTotalDuration
            , getQuestion:             _getQuestion
            , getStimuli:              _getStimuli
            , getExpectedStimuli:      _getExpectedStimuli
@@ -333,7 +350,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
 
   };
 
-  var Matrix = function(arg_element, arg_rows, arg_columns)
+  var Matrix = function (arg_element, arg_rows, arg_columns)
   {
     if (arg_undefined === arg_element)
     {

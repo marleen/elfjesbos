@@ -12,6 +12,8 @@
       <p id="instructions">&nbsp;</p>
       <div id="matrix">
       </div>
+      <div id="piggy-bank">
+      </div>
     </div>
     <script type="text/javascript" src="vendor/xmlhttprequest/xmlhttprequest.js"></script>
     <script type="text/javascript" src="http://www.rekentuin.nl/js/mootools-core.js"></script>
@@ -20,8 +22,8 @@
 
       window.addEvent('domready', function()
       {
-        var controller = new MemoryGrid.GameController(document.getElementById('matrix'), document.getElementById('instructions'));
-        
+        var controller = new MemoryGrid.GameController(document.getElementById('matrix'), document.getElementById('instructions'), document.getElementById('piggy-bank'));        
+
         try
         {
           controller.startGame();
