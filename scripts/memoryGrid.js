@@ -24,9 +24,8 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
         , stimuli      = this.configuration.getStimuli()
         , stimuliCount = stimuli.length
         , delay        = -stimuli[0].delay
-        , element;
 
-      for (var i = 0; i < stimuliCount; i++)
+      for (var i = 0, element; i < stimuliCount; i++)
       {
         delay        += stimuli[i].delay;
         element       = arg_selector(this.matrix.grid[stimuli[i].y][stimuli[i].x]);
