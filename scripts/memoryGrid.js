@@ -86,6 +86,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
 
       if (stimulus.y != cell.parentNode.rowIndex || stimulus.x != cell.cellIndex)
       {
+        document.getElementById('piggy-bank').removeClass('coin_neutral').addClass('coin_incorrect');
         this.changeText("That's too bad, you lost :-( Stay alert we'll start again soon");
         this.highLightText();
         this.controller.endGame();
@@ -95,6 +96,7 @@ var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
       {
         if (1 > stimuli.length)
         {
+          document.getElementById('piggy-bank').removeClass('coin_neutral').addClass('coin_correct');
           this.changeText("Great you won the game :-D Stay alert we'll start again soon");
           this.highLightText();
           this.controller.endGame();

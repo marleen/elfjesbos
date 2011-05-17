@@ -30,9 +30,22 @@ p#instructions
   width: 760px;
   margin: 0;
   padding: 0;
-  background: transparent url(../images/coin_neutral.png) repeat-x scroll 0 0;
   height: 40px;
 }
+
+.coin_neutral
+{
+  background: transparent url(../images/coin_neutral.png) repeat-x scroll 0 0;
+}
+.coin_correct
+{
+  background: transparent url(../images/coin_correct.png) repeat-x scroll 0 0;
+}
+.coin_incorrect
+{
+  background: transparent url(../images/coin_incorre.png) repeat-x scroll 0 0;
+}
+
 
 /* this query is not specifying the type of cell (e.g. ball, triangle) */
 /* that should still be added */
