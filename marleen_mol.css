@@ -1,0 +1,176 @@
+*
+{
+  margin:0;
+  padding:0;
+}
+div.screen
+{
+  position:absolute;
+  left:0;
+  top:0;
+  line-height:40px;
+  width:800px;
+  height:550px;
+  font-weight:normal;
+  font-family:'Comic Sans MS',sans-serif;
+  background-image:url('images/background.png');
+}
+div.screen span.coin span.coin
+{
+  position:absolute;
+  top:502px;
+  font-size:12px;
+  height:21px;
+  line-height:21px;
+  padding:8px 8px 14px;
+  text-align:center;
+  width:22px;
+}
+div.screen span.coin span.correct
+{
+  background-image:url('images/coin_correct.png');
+  color:#009F00;
+}
+div.screen span.coin span.incorre
+{
+  background-image:url('images/coin_incorre.png');
+  color:#9F0000;
+}
+div.screen span.coin span.neutral
+{
+  background-image:url('images/coin_neutral.png');
+  color:#9F9F00;
+}
+div.screen span.c0  { left:0px; }
+div.screen span.c1  { left:40px; }
+div.screen span.c2  { left:80px; }
+div.screen span.c3  { left:120px; }
+div.screen span.c4  { left:160px; }
+div.screen span.c5  { left:200px; }
+div.screen span.c6  { left:240px; }
+div.screen span.c7  { left:280px; }
+div.screen span.c8  { left:320px; }
+div.screen span.c9  { left:360px; }
+div.screen span.c10 { left:400px; }
+div.screen span.c11 { left:440px; }
+div.screen span.c12 { left:480px; }
+div.screen span.c13 { left:520px; }
+div.screen span.c14 { left:560px; }
+div.screen span.c15 { left:600px; }
+div.screen span.c16 { left:640px; }
+div.screen span.c17 { left:680px; }
+div.screen span.c18 { left:720px; }
+div.screen span.c19 { left:760px; }
+div.screen a.stop
+{
+  position:absolute;
+  left:561px;
+  top:394px;
+  width:93px;
+  height:107px;
+  cursor:pointer;
+  background-image:url('images/stop.png');
+}
+div.screen a.coins
+{
+  position:absolute;
+  right:5px;
+  top:380px;
+  width:107px;
+  height:127px;
+  background-image:url('images/coins.png');
+}
+div.screen a.stop span.text
+{
+  position:absolute;
+  text-align:center;
+  padding:27px 5px 38px;
+  width:83px;
+  height:42px;
+  color:white;
+}
+div.screen a.coins span.text
+{
+  position:absolute;
+  text-align:center;
+  padding:50px 30px 30px 20px;
+  width:57px;
+  height:47px;
+  color:white;
+}
+div.screen a.questionmark
+{
+  position:absolute;
+  right:0px;
+  top:302px;
+  width:58px;
+  height:60px;
+  line-height:58px;
+  cursor:pointer;
+  background-image:url('images/answer_dont_know.png');
+}
+div.screen a
+{
+  color:black;
+  text-decoration:none;
+}
+div.screen a img
+{
+  border:0;
+}
+
+
+
+/* OLD STYLES BELOW */
+
+p#instructions
+{
+  background: rgba(255, 255, 255, .5);
+  font-weight: bold;
+  text-align: center;
+  font-size: 110%;
+  padding: 2em 1ex;
+  margin: 0;
+}
+
+#matrix
+{
+  margin: 50px 25%;
+}
+
+#piggy-bank
+{
+  position: absolute;
+  top: 80px;
+  left: 20px;
+  width: 760px;
+  margin: 0;
+  padding: 0;
+  height: 40px;
+}
+
+.coin_neutral
+{
+  background: transparent url(../images/coin_neutral.png) repeat-x scroll 0 0;
+}
+.coin_correct
+{
+  background: transparent url(../images/coin_correct.png) repeat-x scroll 0 0;
+}
+.coin_incorrect
+{
+  background: transparent url(../images/coin_incorre.png) repeat-x scroll 0 0;
+}
+
+
+/* this query is not specifying the type of cell (e.g. ball, triangle) */
+/* that should still be added */
+#matrix > table > tbody > tr > td
+{
+  border: 0;
+  background: transparent url(../images/mole-sprite.gif) no-repeat scroll 0 0;
+  height: 76px;
+  width: 59px;
+  padding: 0;
+  margin: 0;
+}

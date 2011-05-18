@@ -1,0 +1,4 @@
+-----------------------MARLEEN MOLLENSPEL DATABASE TOEVOEGINGEN-----------------------
+INSERT INTO `games` (`id`, `name`, `class`, `domain_id`, `plant_type`, `question_text_renderer_id`, `answer_text_renderer_id`, `font_name`, `random_answer_order`, `core_game_type_id`, `wait_correct`, `wait_incorrect`, `enabled`, `standard_setting`, `alternative_setting`) VALUES (20, 'marleenmol', 'MarleenMol', 40, 12, NULL, NULL, '', 0, 7, 1, 3, 0, 'bonus', 'bonus');
+
+INSERT INTO `domains` (`id`, `garden_id`, `short_name`, `name`, `active`) VALUES (40, 0, 'marleen', 'marleenmol', 0);

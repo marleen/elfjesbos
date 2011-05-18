@@ -1,3 +1,56 @@
+var MarleenMol = new Class({
+  Extends:          GameUtils,
+  Implements:       [Events],
+  BindAll:          true,
+
+  screen:           false,
+  data:             false,
+  gameData:         false,
+  itemData:         false,
+  timeouts:         [],
+
+  givenAnswer:      '',
+  correct:          false,
+  coinsLeft:        0,
+
+  initialize: function (screen, data)
+  {
+    this.screen = screen;
+    this.data   = data;
+  },
+
+  item: function (itemData)
+  {
+    this.data.Item        = itemData.Item;
+    this.coinsLeft        = this.screen.game.coin.length;
+    this.numberOfSeconds  = 20 //moet worden: itemData.Item.maximum_response_in_seconds.toInt();
+    
+    this.animateCoins(0, 1);
+  },
+
+  answer: function (answer)
+  {
+    var multiplier = this.numberOfSeconds / this.screen.game.coin.length;
+    if (multiplier < 1)
+    {
+      multiplier = 1;
+    }
+    
+    var readyDelay;
+    if (this.givenAnswer == __('questionMarkValue'))
+    {
+      readyDelay = this.animateCoins(0, 0);
+    }
+    else
+    {
+      readyDelay = this.animateCoins(this.correct ? 1 : 2, 10 * multiplier);
+    }
+    readyDelay += this.correct ? this.data.Game.wait_correct * 1000 : this.data.Game.wait_incorrect * 1000;
+
+    this.fireEvent('answer', [this.givenAnswer, this.correct, this.coinsLeft, readyDelay]);
+  }
+});
+
 var MemoryGrid = (function(arg_window, arg_selector, arg_undefined)
 {
   var Game = function(arg_matrix, arg_configuration, arg_textElement, arg_controller)
