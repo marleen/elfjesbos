@@ -3,6 +3,24 @@
   margin:0;
   padding:0;
 }
+
+table.grid {
+  position: absolute;
+  left: 200px;
+  top: 35px;
+  border: 0;
+  text-align: center;
+  font-size: 0px;
+}
+table.grid td {
+  border: 0;
+  background: transparent url('images/mole-sprite.gif') no-repeat scroll 0 0;
+  height: 76px;
+  width: 59px;
+  margin: 0;
+  padding: 0;
+}
+
 div.screen
 {
   position:absolute;
@@ -136,30 +154,6 @@ p#instructions
 #matrix
 {
   margin: 50px 25%;
-}
-
-#piggy-bank
-{
-  position: absolute;
-  top: 80px;
-  left: 20px;
-  width: 760px;
-  margin: 0;
-  padding: 0;
-  height: 40px;
-}
-
-.coin_neutral
-{
-  background: transparent url(../images/coin_neutral.png) repeat-x scroll 0 0;
-}
-.coin_correct
-{
-  background: transparent url(../images/coin_correct.png) repeat-x scroll 0 0;
-}
-.coin_incorrect
-{
-  background: transparent url(../images/coin_incorre.png) repeat-x scroll 0 0;
 }
 
 

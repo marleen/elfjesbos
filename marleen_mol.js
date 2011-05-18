@@ -22,6 +22,7 @@ var MarleenMol = new Class({
   item: function (itemData)
   {
     this.data.Item        = itemData.Item;
+    this.Item             = JSON.decode(this.data.Item.question);
     this.coinsLeft        = this.screen.game.coin.length;
     this.numberOfSeconds  = 20 //moet worden: itemData.Item.maximum_response_in_seconds.toInt();
     
