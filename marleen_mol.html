@@ -1,13 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <link rel="stylesheet" type="text/css" href="marleenmol.css" />
   </head>
   <body>
     <div class="screen">
-      <p id="instructions">&nbsp;</p>
-      <div id="matrix"></div>
-      <div id="piggy-bank" class="coin_neutral"></div>
+      <div id="instructions" class="instructions">
+        <div id="[pre]">
+          <div id="[0]">Onthoudt de volgorde van de objecten</div>
+        </div>
+        <div id="[post]">
+          <div id="[0]">Klik de objecten aan in dezelfde volgorde</div>
+        </div>
+      </div>
       
       <table id="grid" class="grid" cellpadding="0" cellspacing="0">
         <tr id="[0]">
@@ -125,10 +129,8 @@
           <span class="coin c19 incorre" id="[19][2]"></span>
           <span class="coin c19 neutral" id="[19][0]"></span>
         </span>
+        <a class="answerDontKnow" id="answerDontKnow"></a>
       </span>
-      <a class="questionmark" id="questionmark">
-        <span class="text" id="text"></span>
-      </a>
     </div>
   </body>
 </html>

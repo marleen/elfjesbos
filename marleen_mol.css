@@ -13,12 +13,33 @@ table.grid {
   font-size: 0px;
 }
 table.grid td {
-  border: 0;
+  border: 2px solid transparent;
   background: transparent url('images/mole-sprite.gif') no-repeat scroll 0 0;
   height: 76px;
   width: 59px;
   margin: 0;
   padding: 0;
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 15px;
+  text-align: center;
+  vertical-align: middle;
+}
+table.grid td:hover {
+  border: 2px solid #ffffff;
+  cursor: pointer;
+}
+
+div.screen a.answerDontKnow
+{
+  position:absolute;
+  right:0px;
+  top:302px;
+  width:58px;
+  height:60px;
+  line-height:58px;
+  cursor:pointer;
+  background-image:url('images/answer_dont_know.png');
 }
 
 div.screen
@@ -141,30 +162,12 @@ div.screen a img
 
 /* OLD STYLES BELOW */
 
-p#instructions
+div.instructions
 {
   background: rgba(255, 255, 255, .5);
   font-weight: bold;
   text-align: center;
   font-size: 110%;
-  padding: 2em 1ex;
-  margin: 0;
-}
-
-#matrix
-{
-  margin: 50px 25%;
-}
-
-
-/* this query is not specifying the type of cell (e.g. ball, triangle) */
-/* that should still be added */
-#matrix > table > tbody > tr > td
-{
-  border: 0;
-  background: transparent url(../images/mole-sprite.gif) no-repeat scroll 0 0;
-  height: 76px;
-  width: 59px;
   padding: 0;
   margin: 0;
 }
