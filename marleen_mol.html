@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  </head>
+  <body>
+    <div class="screen">
+      <div id="instructions" class="instructions">
+        <div id="[pre]">
+          <div id="[0]">Onthoudt de volgorde van de objecten</div>
+        </div>
+        <div id="[post]">
+          <div id="[0]">Klik de objecten aan in dezelfde volgorde</div>
+        </div>
+      </div>
+      
+      <table id="grid" class="grid" cellpadding="0" cellspacing="0">
+        <tr id="[0]">
+          <td id="[0]"></td>
+          <td id="[1]"></td>
+          <td id="[2]"></td>
+          <td id="[3]"></td>
+          <td id="[4]"></td>
+          <td id="[5]"></td>
+        </tr>
+        <tr id="[1]">
+          <td id="[0]"></td>
+          <td id="[1]"></td>
+          <td id="[2]"></td>
+          <td id="[3]"></td>
+          <td id="[4]"></td>
+          <td id="[5]"></td>
+        </tr>
+        <tr id="[2]">
+          <td id="[0]"></td>
+          <td id="[1]"></td>
+          <td id="[2]"></td>
+          <td id="[3]"></td>
+          <td id="[4]"></td>
+          <td id="[5]"></td>
+        </tr>
+        <tr id="[3]">
+          <td id="[0]"></td>
+          <td id="[1]"></td>
+          <td id="[2]"></td>
+          <td id="[3]"></td>
+          <td id="[4]"></td>
+          <td id="[5]"></td>
+        </tr>
+        <tr id="[4]">
+          <td id="[0]"></td>
+          <td id="[1]"></td>
+          <td id="[2]"></td>
+          <td id="[3]"></td>
+          <td id="[4]"></td>
+          <td id="[5]"></td>
+        </tr>
+        <tr id="[5]">
+          <td id="[0]"></td>
+          <td id="[1]"></td>
+          <td id="[2]"></td>
+          <td id="[3]"></td>
+          <td id="[4]"></td>
+          <td id="[5]"></td>
+        </tr>
+      </table>
+
+      <span id="game">
+        <a class="stop" id="stop"><span class="text" id="text">STOP</span></a>
+        <a class="coins" id="coins"><span class="text" id="text">0</span></a>
+        <span class="coin" id="coin">
+          <span class="coin c0 correct" id="[0][1]"></span>
+          <span class="coin c0 incorre" id="[0][2]"></span>
+          <span class="coin c0 neutral" id="[0][0]"></span>
+          <span class="coin c1 correct" id="[1][1]"></span>
+          <span class="coin c1 incorre" id="[1][2]"></span>
+          <span class="coin c1 neutral" id="[1][0]"></span>
+          <span class="coin c2 correct" id="[2][1]"></span>
+          <span class="coin c2 incorre" id="[2][2]"></span>
+          <span class="coin c2 neutral" id="[2][0]"></span>
+          <span class="coin c3 correct" id="[3][1]"></span>
+          <span class="coin c3 incorre" id="[3][2]"></span>
+          <span class="coin c3 neutral" id="[3][0]"></span>
+          <span class="coin c4 correct" id="[4][1]"></span>
+          <span class="coin c4 incorre" id="[4][2]"></span>
+          <span class="coin c4 neutral" id="[4][0]"></span>
+          <span class="coin c5 correct" id="[5][1]"></span>
+          <span class="coin c5 incorre" id="[5][2]"></span>
+          <span class="coin c5 neutral" id="[5][0]"></span>
+          <span class="coin c6 correct" id="[6][1]"></span>
+          <span class="coin c6 incorre" id="[6][2]"></span>
+          <span class="coin c6 neutral" id="[6][0]"></span>
+          <span class="coin c7 correct" id="[7][1]"></span>
+          <span class="coin c7 incorre" id="[7][2]"></span>
+          <span class="coin c7 neutral" id="[7][0]"></span>
+          <span class="coin c8 correct" id="[8][1]"></span>
+          <span class="coin c8 incorre" id="[8][2]"></span>
+          <span class="coin c8 neutral" id="[8][0]"></span>
+          <span class="coin c9 correct" id="[9][1]"></span>
+          <span class="coin c9 incorre" id="[9][2]"></span>
+          <span class="coin c9 neutral" id="[9][0]"></span>
+          <span class="coin c10 correct" id="[10][1]"></span>
+          <span class="coin c10 incorre" id="[10][2]"></span>
+          <span class="coin c10 neutral" id="[10][0]"></span>
+          <span class="coin c11 correct" id="[11][1]"></span>
+          <span class="coin c11 incorre" id="[11][2]"></span>
+          <span class="coin c11 neutral" id="[11][0]"></span>
+          <span class="coin c12 correct" id="[12][1]"></span>
+          <span class="coin c12 incorre" id="[12][2]"></span>
+          <span class="coin c12 neutral" id="[12][0]"></span>
+          <span class="coin c13 correct" id="[13][1]"></span>
+          <span class="coin c13 incorre" id="[13][2]"></span>
+          <span class="coin c13 neutral" id="[13][0]"></span>
+          <span class="coin c14 correct" id="[14][1]"></span>
+          <span class="coin c14 incorre" id="[14][2]"></span>
+          <span class="coin c14 neutral" id="[14][0]"></span>
+          <span class="coin c15 correct" id="[15][1]"></span>
+          <span class="coin c15 incorre" id="[15][2]"></span>
+          <span class="coin c15 neutral" id="[15][0]"></span>
+          <span class="coin c16 correct" id="[16][1]"></span>
+          <span class="coin c16 incorre" id="[16][2]"></span>
+          <span class="coin c16 neutral" id="[16][0]"></span>
+          <span class="coin c17 correct" id="[17][1]"></span>
+          <span class="coin c17 incorre" id="[17][2]"></span>
+          <span class="coin c17 neutral" id="[17][0]"></span>
+          <span class="coin c18 correct" id="[18][1]"></span>
+          <span class="coin c18 incorre" id="[18][2]"></span>
+          <span class="coin c18 neutral" id="[18][0]"></span>
+          <span class="coin c19 correct" id="[19][1]"></span>
+          <span class="coin c19 incorre" id="[19][2]"></span>
+          <span class="coin c19 neutral" id="[19][0]"></span>
+        </span>
+        <a class="answerDontKnow" id="answerDontKnow"></a>
+      </span>
+    </div>
+  </body>
+</html>
