@@ -30,6 +30,26 @@ table.grid td:hover {
   cursor: pointer;
 }
 
+s1_c {background-image: url('images/s1_c1.gif');}
+s1_c {background-image: url('images/s1_c2.gif');}
+s1_c {background-image: url('images/s1_c3.gif');}
+s1_c {background-image: url('images/s1_c4.gif');}
+
+s2_c {background-image: url('images/s2_c1.gif');}
+s2_c {background-image: url('images/s2_c2.gif');}
+s2_c {background-image: url('images/s2_c3.gif');}
+s2_c {background-image: url('images/s2_c4.gif');}
+
+s3_c {background-image: url('images/s3_c1.gif');}
+s3_c {background-image: url('images/s3_c2.gif');}
+s3_c {background-image: url('images/s3_c3.gif');}
+s3_c {background-image: url('images/s3_c4.gif');}
+
+s4_c {background-image: url('images/s4_c1.gif');}
+s4_c {background-image: url('images/s4_c2.gif');}
+s4_c {background-image: url('images/s4_c3.gif');}
+s4_c {background-image: url('images/s4_c4.gif');}
+
 div.screen a.answerDontKnow
 {
   position:absolute;
@@ -53,6 +73,7 @@ div.screen
   font-weight:normal;
   font-family:'Comic Sans MS',sans-serif;
   background-image:url('images/background.png');
+  background-color: #808080;
 }
 div.screen span.coin span.coin
 {

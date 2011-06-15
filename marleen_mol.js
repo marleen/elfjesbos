@@ -65,7 +65,7 @@ var MarleenMol = new Class({
       this.style(this.screen.game.coin[i], 0);
     }
     
-    this.setInstruction(this.Item.pre, 'pre');
+    this.setInstruction(this.Item.task, 'pre');
     
     this.hide(this.screen.game.stop);
     this.hide(this.screen.game.answerDontKnow);
@@ -77,7 +77,7 @@ var MarleenMol = new Class({
   stimulusFinished: function ()
   {
     this.answerAllowed = true;
-    this.setInstruction(this.Item.post, 'post');
+    this.setInstruction(this.Item.task, 'post');
     this.show(this.screen.game.answerDontKnow);
     this.animateCoins(0, 1);
   },
@@ -115,17 +115,17 @@ var MarleenMol = new Class({
     for (var i = 0; i < this.Item.sequence.length; i++)
     {
       var cell = this.Item.sequence[i];
-      console.log(cell);
+      this.screen.grid[y][x].set('class', 's' + cell.shape + 'c' + cell.col);
       for (var j = 0; j < 5; j++)
       {
         this.timeouts.sequence.push(this.updateCell.pass([cell.x, cell.y, j + 1]).delay(this.animationDelay));
-        this.animationDelay += 1000 / this.ANIMATION_FPS;
+        this.animationDelay += 1000 / cell.fps;
       }
       for (j = 4; j >= 0; j--)
       {
-        if (j == 4) this.animationDelay += this.HOLD_SHAPE_MS;
+        if (j == 4) this.animationDelay += cell.holdms;
         this.timeouts.sequence.push(this.updateCell.pass([cell.x, cell.y, j]).delay(this.animationDelay));
-        this.animationDelay += 1000 / this.ANIMATION_FPS;
+        this.animationDelay += 1000 / cell.fps;
       }
     }
   },
