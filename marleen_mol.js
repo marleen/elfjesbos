@@ -49,12 +49,13 @@ var MarleenMol = new Class({
   {
     /* Reset variabelen en verwerk itemdata */
     this.answerAllowed    = false;
-    this.givenAnswer      = false;
+    this.givenAnswer      = [];
     this.currentIndex     = 0;
     this.animationDelay   = 0;
     
     this.data.Item        = itemData.Item;
     this.Item             = JSON.decode(this.data.Item.question);
+    this.Item.correct     = JSON.decode(this.data.Item.correct_answer);
     this.updateGrid();
     
     /* Herstel muntjes, bereid scherm voor op itemafname */
@@ -115,7 +116,7 @@ var MarleenMol = new Class({
     for (var i = 0; i < this.Item.sequence.length; i++)
     {
       var cell = this.Item.sequence[i];
-      this.screen.grid[y][x].set('class', 's' + cell.shape + 'c' + cell.col);
+      this.screen.grid[cell.y][cell.x].set('class', 's' + cell.shape + '_c' + cell.col);
       for (var j = 0; j < 5; j++)
       {
         this.timeouts.sequence.push(this.updateCell.pass([cell.x, cell.y, j + 1]).delay(this.animationDelay));
@@ -141,8 +142,11 @@ var MarleenMol = new Class({
     /* Is de animatie al afgelopen? */
     if (!this.answerAllowed) return false;
     
+    /* Vul givenAnswer aan */
+    this.givenAnswer.push([x,y]);
+    
     /* Is de juiste positie aangeklikt? */
-    if (x != this.Item.sequence[this.currentIndex].x || y != this.Item.sequence[this.currentIndex].y)
+    if (x != this.Item.correct[this.currentIndex][0] || y != this.Item.correct[this.currentIndex][1])
     {
       this.answer('incorrect');
     }
@@ -170,7 +174,7 @@ var MarleenMol = new Class({
   {
     this.answerAllowed = false;
     var correct = (answer == 'correct');
-    this.givenAnswer = answer;
+    this.givenAnswer = JSON.encode(this.givenAnswer);
     
     var multiplier = this.numberOfSeconds / this.screen.game.coin.length;
     if (multiplier < 1) multiplier = 1;
@@ -183,6 +187,6 @@ var MarleenMol = new Class({
     else                                   readyDelay = this.animateCoins(correct ? 1 : 2, 10 * multiplier);
     readyDelay += correct ? this.data.Game.wait_correct * 1000 : this.data.Game.wait_incorrect * 1000;
     
-    this.fireEvent('answer', [answer, correct, this.coinsLeft, readyDelay]);
+    this.fireEvent('answer', [this.givenAnswer, correct, this.coinsLeft, readyDelay]);
   }
 });
