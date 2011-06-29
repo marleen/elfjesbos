@@ -29,7 +29,7 @@ table.grid td:hover {
   cursor: pointer;
 }
 
-.s0_c0 {background: transparent url('images/mole-sprite.gif') no-repeat 0 0;}
+.s0_c0 {background: transparent url('images/s0_c0.gif') no-repeat 0 0;}
 
 .s1_c1 {background: transparent url('images/s1_c1.gif') no-repeat 0 0;}
 .s1_c2 {background: transparent url('images/s1_c2.gif') no-repeat 0 0;}
@@ -53,12 +53,27 @@ table.grid td:hover {
 
 div.instructions
 {
-  background: rgba(255, 255, 255, .5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: rgba(255, 255, 255, .8);
   font-weight: bold;
   text-align: center;
-  font-size: 110%;
+  font-size: 20px;
+  line-height: 40px;
   padding: 0;
   margin: 0;
+}
+div.instructionsFlash
+{
+  top: 28px;
+  left: 40px;
+  width: 720px;
+  height: 295px;
+  padding-top: 200px;
+  z-index: 1000;
 }
 div.instructions em
 {

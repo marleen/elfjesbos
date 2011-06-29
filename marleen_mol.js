@@ -80,16 +80,22 @@ var MarleenMol = new Class({
     this.answerAllowed = true;
     this.setInstruction(this.Item.task, 'post');
     this.show(this.screen.game.answerDontKnow);
-    this.animateCoins(0, 1);
+    this.animateCoins.delay(this.animationDelay, this, [0, 1]);
   },
 
   setInstruction: function (id, prepost)
   {
     var instructions = this.screen.instructions.container.getElements('div').hide();
+    var inCont       = this.screen.instructions.container;
     if (id !== false)
     {
       this.screen.instructions[prepost][id].show();
       this.screen.instructions[prepost][id].getParent().show();
+      
+      this.animationDelay = 500;
+      inCont.set('opacity', 0).addClass('instructionsFlash').set('tween', {duration: this.animationDelay}).fade('in');
+      this.animationDelay += 1500;
+      this.screen.instructions.container.removeClass.delay(this.animationDelay, this.screen.instructions.container, 'instructionsFlash');
     }
   },
 
