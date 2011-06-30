@@ -11,6 +11,7 @@ var MarleenMol = new Class({
   timeouts:         [],
 
   answerAllowed:    false,
+  currentAnswer:    [],
   givenAnswer:      false,
   coinsLeft:        0,
 
@@ -49,7 +50,8 @@ var MarleenMol = new Class({
   {
     /* Reset variabelen en verwerk itemdata */
     this.answerAllowed    = false;
-    this.givenAnswer      = [];
+    this.givenAnswer      = false;
+    this.currentAnswer    = [];
     this.currentIndex     = 0;
     this.animationDelay   = 0;
     
@@ -80,6 +82,7 @@ var MarleenMol = new Class({
     this.answerAllowed = true;
     this.setInstruction(this.Item.task, 'post');
     this.show(this.screen.game.answerDontKnow);
+    this.itemStartTime = new Date();
     this.animateCoins.delay(this.animationDelay, this, [0, 1]);
   },
 
@@ -148,8 +151,8 @@ var MarleenMol = new Class({
     /* Is de animatie al afgelopen? */
     if (!this.answerAllowed) return false;
     
-    /* Vul givenAnswer aan */
-    this.givenAnswer.push([x,y]);
+    /* Vul currentAnswer aan */
+    this.currentAnswer.push([x,y]);
     
     /* Is de juiste positie aangeklikt? */
     if (x != this.Item.correct[this.currentIndex][0] || y != this.Item.correct[this.currentIndex][1])
@@ -174,7 +177,7 @@ var MarleenMol = new Class({
     {
       x = this.Item.correct[i][0];
       y = this.Item.correct[i][1];
-      if (typeof this.givenAnswer[i] == 'undefined' || this.givenAnswer[i][0] != x || this.givenAnswer[i][1] != y)
+      if (typeof this.currentAnswer[i] == 'undefined' || this.currentAnswer[i][0] != x || this.currentAnswer[i][1] != y)
       {
         /* Toon waar de speler wel had moeten klikken */
         oldHtml  = this.screen.grid[y][x].get('html');
@@ -183,12 +186,12 @@ var MarleenMol = new Class({
         this.screen.grid[y][x].set('html', newHtml);
         
         /* Toon waar de speler foutief heeft geklikt */
-        if (typeof this.givenAnswer[i] != 'undefined')
+        if (typeof this.currentAnswer[i] != 'undefined')
         {
-          oldHtml  = this.screen.grid[this.givenAnswer[i][1]][this.givenAnswer[i][0]].get('html');
+          oldHtml  = this.screen.grid[this.currentAnswer[i][1]][this.currentAnswer[i][0]].get('html');
           newHtml  = (oldHtml == '') ? '' : oldHtml + ', ';
           newHtml += '<span class="incorrect">' + (i + 1) + '</span>';
-          this.screen.grid[this.givenAnswer[i][1]][this.givenAnswer[i][0]].set('html', newHtml);
+          this.screen.grid[this.currentAnswer[i][1]][this.currentAnswer[i][0]].set('html', newHtml);
         }
       }
     }
@@ -208,7 +211,9 @@ var MarleenMol = new Class({
   {
     this.answerAllowed = false;
     var correct = (answer == 'correct');
-    this.givenAnswer = JSON.encode(this.givenAnswer);
+    this.givenAnswer = JSON.encode(this.currentAnswer);
+    if (answer == __('notAnsweredValue')) this.givenAnswer = __('notAnsweredValue');
+    if (answer == __('questionMarkValue')) this.givenAnswer = __('questionMarkValue');
     
     var multiplier = this.numberOfSeconds / this.screen.game.coin.length;
     if (multiplier < 1) multiplier = 1;
