@@ -154,6 +154,7 @@ var MarleenMol = new Class({
     /* Is de juiste positie aangeklikt? */
     if (x != this.Item.correct[this.currentIndex][0] || y != this.Item.correct[this.currentIndex][1])
     {
+      this.showFeedback();
       this.answer('incorrect');
     }
     else
@@ -163,6 +164,33 @@ var MarleenMol = new Class({
       var newHtml = (oldHtml == '') ? '' : oldHtml + ', ' ;
       this.screen.grid[y][x].set('html', newHtml + this.currentIndex);
       if (this.currentIndex == this.Item.sequence.length) this.answer('correct');
+    }
+  },
+
+  showFeedback: function ()
+  {
+    var x, y, oldHtml, newHtml;
+    for (var i = 0; i < this.Item.correct.length; i++)
+    {
+      x = this.Item.correct[i][0];
+      y = this.Item.correct[i][1];
+      if (typeof this.givenAnswer[i] == 'undefined' || this.givenAnswer[i][0] != x || this.givenAnswer[i][1] != y)
+      {
+        /* Toon waar de speler wel had moeten klikken */
+        oldHtml  = this.screen.grid[y][x].get('html');
+        newHtml  = (oldHtml == '') ? '' : oldHtml + ', ';
+        newHtml += '<span class="correct">' + (i + 1) + '</span>';
+        this.screen.grid[y][x].set('html', newHtml);
+        
+        /* Toon waar de speler foutief heeft geklikt */
+        if (typeof this.givenAnswer[i] != 'undefined')
+        {
+          oldHtml  = this.screen.grid[this.givenAnswer[i][1]][this.givenAnswer[i][0]].get('html');
+          newHtml  = (oldHtml == '') ? '' : oldHtml + ', ';
+          newHtml += '<span class="incorrect">' + (i + 1) + '</span>';
+          this.screen.grid[this.givenAnswer[i][1]][this.givenAnswer[i][0]].set('html', newHtml);
+        }
+      }
     }
   },
 

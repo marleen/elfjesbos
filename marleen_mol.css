@@ -28,6 +28,14 @@ table.grid td:hover {
   border: 2px solid #ffffff;
   cursor: pointer;
 }
+table.grid td span.correct
+{
+  color: #44ff00; 
+}
+table.grid td span.incorrect
+{
+  color: #ff0000; 
+}
 
 .s0_c0 {background: transparent url('images/s0_c0.gif') no-repeat 0 0;}
 
