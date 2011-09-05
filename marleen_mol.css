@@ -7,7 +7,7 @@
 table.grid {
   position: absolute;
   left: 200px;
-  top: 35px;
+  top: 55px;
   border: 0;
   text-align: center;
   font-size: 0px;
@@ -22,7 +22,6 @@ table.grid td {
   font-size: 15px;
   line-height: 15px;
   text-align: center;
-  vertical-align: middle;
 }
 table.grid td:hover {
   border: 2px solid #ffffff;
@@ -66,7 +65,7 @@ div.instructions
   left: 0;
   width: 100%;
   height: 40px;
-  background: rgba(255, 255, 255, .8);
+  background: #ffffff;
   font-weight: bold;
   text-align: center;
   font-size: 20px;

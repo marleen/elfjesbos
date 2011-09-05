@@ -81,7 +81,7 @@ var MarleenMol = new Class({
   {
     this.answerAllowed = true;
     this.setInstruction(this.Item.task, 'post');
-    this.show(this.screen.game.answerDontKnow);
+    this.show.delay(this.animationDelay, this, this.screen.game.answerDontKnow);
     this.itemStartTime = new Date();
     this.animateCoins.delay(this.animationDelay, this, [0, 1]);
   },
@@ -96,7 +96,7 @@ var MarleenMol = new Class({
       this.screen.instructions[prepost][id].getParent().show();
       
       this.animationDelay = 500;
-      inCont.set('opacity', 0).addClass('instructionsFlash').set('tween', {duration: this.animationDelay}).fade('in');
+      inCont.set('opacity', 0).addClass('instructionsFlash').set('tween', {fps: 10, duration: this.animationDelay}).fade('in');
       this.animationDelay += 1500;
       this.screen.instructions.container.removeClass.delay(this.animationDelay, this.screen.instructions.container, 'instructionsFlash');
     }
@@ -112,7 +112,7 @@ var MarleenMol = new Class({
         for (var col = 0; col < 6; col++)
         {
           if (col >= this.Item.grid[0]) this.hide(this.screen.grid[row][col]);
-          else                          this.show(this.screen.grid[row][col].set('html', ''));
+          else                          this.show(this.screen.grid[row][col].set('html', '&nbsp;'));
         }
         this.show(this.screen.grid[row]);
       }
@@ -164,7 +164,7 @@ var MarleenMol = new Class({
     {
       this.currentIndex++;
       var oldHtml = this.screen.grid[y][x].get('html');
-      var newHtml = (oldHtml == '') ? '' : oldHtml + ', ' ;
+      var newHtml = (oldHtml == '&nbsp;') ? '' : oldHtml + ', ' ;
       this.screen.grid[y][x].set('html', newHtml + this.currentIndex);
       if (this.currentIndex == this.Item.sequence.length) this.answer('correct');
     }
@@ -181,7 +181,7 @@ var MarleenMol = new Class({
       {
         /* Toon waar de speler wel had moeten klikken */
         oldHtml  = this.screen.grid[y][x].get('html');
-        newHtml  = (oldHtml == '') ? '' : oldHtml + ', ';
+        newHtml  = (oldHtml == '&nbsp;') ? '' : oldHtml + ', ';
         newHtml += '<span class="correct">' + (i + 1) + '</span>';
         this.screen.grid[y][x].set('html', newHtml);
         
@@ -189,7 +189,7 @@ var MarleenMol = new Class({
         if (typeof this.currentAnswer[i] != 'undefined')
         {
           oldHtml  = this.screen.grid[this.currentAnswer[i][1]][this.currentAnswer[i][0]].get('html');
-          newHtml  = (oldHtml == '') ? '' : oldHtml + ', ';
+          newHtml  = (oldHtml == '&nbsp;') ? '' : oldHtml + ', ';
           newHtml += '<span class="incorrect">' + (i + 1) + '</span>';
           this.screen.grid[this.currentAnswer[i][1]][this.currentAnswer[i][0]].set('html', newHtml);
         }
