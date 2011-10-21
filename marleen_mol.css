@@ -97,7 +97,7 @@ div.screen a.answerDontKnow
   height:60px;
   line-height:58px;
   cursor:pointer;
-  background-image:url('images/answer_dont_know.png');
+  background-image:url('../lib/img/answer_dont_know.png');
 }
 
 div.screen
@@ -110,7 +110,7 @@ div.screen
   height:550px;
   font-weight:normal;
   font-family:'Comic Sans MS',sans-serif;
-  background-image:url('images/background.png');
+  background-image:url('../mastermind/images/background.png');
   background-color: #808080;
 }
 div.screen span.coin span.coin
@@ -126,17 +126,17 @@ div.screen span.coin span.coin
 }
 div.screen span.coin span.correct
 {
-  background-image:url('images/coin_correct.png');
+  background-image:url('../lib/img/coin_correct.png');
   color:#009F00;
 }
 div.screen span.coin span.incorre
 {
-  background-image:url('images/coin_incorre.png');
+  background-image:url('../lib/img/coin_incorre.png');
   color:#9F0000;
 }
 div.screen span.coin span.neutral
 {
-  background-image:url('images/coin_neutral.png');
+  background-image:url('../lib/img/coin_neutral.png');
   color:#9F9F00;
 }
 div.screen span.c0  { left:0px; }
@@ -167,7 +167,7 @@ div.screen a.stop
   width:93px;
   height:107px;
   cursor:pointer;
-  background-image:url('images/stop.png');
+  background-image:url('../lib/img/stop.png');
 }
 div.screen a.coins
 {
@@ -176,7 +176,7 @@ div.screen a.coins
   top:380px;
   width:107px;
   height:127px;
-  background-image:url('images/coins.png');
+  background-image:url('../lib/img/coins.png');
 }
 div.screen a.stop span.text
 {
@@ -205,7 +205,7 @@ div.screen a.questionmark
   height:60px;
   line-height:58px;
   cursor:pointer;
-  background-image:url('images/answer_dont_know.png');
+  background-image:url('../lib/img/answer_dont_know.png');
 }
 div.screen a
 {
